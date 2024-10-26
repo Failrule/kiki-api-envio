@@ -2,25 +2,23 @@
 
 ## Introducción
 
-La **API Envios para Kiki Latam** resuelve la prueba api de ingreso a Kiki.
+La **API Envios para Kiki Latam** resuelve la prueba api de ingreso a Kiki Latam.
 
 ## Características
 
 - **Creación de envíos**: Genera nuevos pedidos de envío con la tarifa indicada
 - **Lista de envíos**: Genera lista de los envios guardados
-- **Persistencia en Sqlite**: Clona el repositorio y se obtienen las pruebas solicitadas en las pruebas
+- **Persistencia en Sqlite**: Clona el repositorio y se obtienen los datos dados los casos solicitados en las pruebas
 
 ## Requisitos Previos
 
-- **Node.js**
-- **npm** 
-- **Docker** 
+- **Docker y docker-compose** 
 
-## Instalación
+## Implementación
 
-1. Clona el repositorio:
+1. Clona el repositorio e ingresa a él:
 
-   `git clone https://github.com/kikilatam/api-envios.git`
+   `git clone https://github.com/Failrule/kiki-api-envio && cd kiki-api-envio`
 
 2. Inicia el docker:
 
