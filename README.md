@@ -30,12 +30,13 @@ La **API Envios para Kiki Latam** resuelve la prueba api de ingreso a Kiki Latam
 
 4. Inserta más datos
 
-  ```curl -X POST http://localhost:3000/envios \
+  ```
+  curl -X POST http://localhost:3000/envios \
   -H "Content-Type: application/json" \
   -d '{
     "destinatario": "Cliente n",
     "remitente": "Empresa n",
     "contenido": "Producto n",
     "distancia": 100
-  }'``
+  }'```
 
