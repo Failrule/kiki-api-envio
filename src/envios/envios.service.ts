@@ -1,29 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { Envio } from './envio.interface';
+import { Envio } from './envio.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateEnvioDto } from './dto/create-envio.dto';
 
 @Injectable()
 export class EnviosService {
-  private envios: Envio[] = [];
-  private idCounter = 1;
+
+  constructor(
+    @InjectRepository(Envio)
+    private readonly envioRepository: Repository<Envio>,
+  ) {}
 
   private calcularTarifa(distancia: number): number {
-    const tarifaBase = 5; // Tarifa base en unidades monetarias
-    const costoPorKm = 0.5; // Costo por kilómetro
-    return tarifaBase + distancia * costoPorKm;
+    const tarifaBase = 5;
+    const costoPorKm = 0.5;
+    const tarifaTotal = tarifaBase + (distancia * costoPorKm);
+    return tarifaTotal;
   }
 
-  crearEnvio(envioData: Omit<Envio, 'id_envio' | 'tarifa' | 'fecha_envio'>): Envio {
-    const nuevoEnvio: Envio = {
-      id_envio: this.idCounter++,
+  async crearEnvio(createEnvioDto: CreateEnvioDto): Promise<Envio> {
+    const tarifa = this.calcularTarifa(createEnvioDto.distancia);
+    const nuevoEnvio = this.envioRepository.create({
+      ...createEnvioDto,
+      tarifa,
       fecha_envio: new Date(),
-      tarifa: this.calcularTarifa(envioData.distancia),
-      ...envioData,
-    };
-    this.envios.push(nuevoEnvio);
-    return nuevoEnvio;
+    });
+    return await this.envioRepository.save(nuevoEnvio);
   }
 
-  obtenerEnvios(): Envio[] {
-    return this.envios;
+  async obtenerEnvios(): Promise<Envio[]> {
+    return await this.envioRepository.find();
   }
 }

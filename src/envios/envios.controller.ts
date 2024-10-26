@@ -8,12 +8,12 @@ export class EnviosController {
   constructor(private readonly enviosService: EnviosService) {}
 
   @Post()
-  crearEnvio(@Body() createEnvioDto: Omit<Envio, 'id_envio' | 'tarifa' | 'fecha_envio'>): Envio {
-    return this.enviosService.crearEnvio(createEnvioDto);
+  async crearEnvio(@Body() createEnvioDto: CreateEnvioDto): Promise<Envio> {
+    return await this.enviosService.crearEnvio(createEnvioDto);
   }
 
   @Get()
-  obtenerEnvios(): Envio[] {
-    return this.enviosService.obtenerEnvios();
+  async obtenerEnvios(): Promise<Envio[]> {
+    return await this.enviosService.obtenerEnvios();
   }
 }
